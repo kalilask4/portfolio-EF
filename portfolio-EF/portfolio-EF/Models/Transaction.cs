@@ -28,5 +28,15 @@ namespace portfolio_EF.Models
             transactionCoins = new List<Coin>();
         }
 
+        public Transaction(string side, string transactionSymbol, Coin debetCoin, Coin creditCoin)
+        {
+            Side = side;
+            TransactionSymbol = transactionSymbol;
+            AddDate = DateTime.Now;
+            transactionCoins = new List<Coin>();
+            transactionCoins.Add(debetCoin);
+            transactionCoins.Add(creditCoin);
+        }
+
     }
 }
