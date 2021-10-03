@@ -35,5 +35,14 @@ namespace portfolio_EF.Models
             transactions = new List<Transaction>();
         }
 
+        public Coin()
+        {
+            Name = "Default";
+            Symbol = "DEF";
+            Amount = 0;
+            DateUpdate = DateTime.Now;
+            transactions = new List<Transaction>();
+        }
+
     }
 }
