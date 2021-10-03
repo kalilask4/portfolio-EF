@@ -15,6 +15,7 @@ namespace portfolio_EF.Models
         public string Name { get; set; }
         [Required]
         public string Symbol { get; set; }
+        [Required]
         public decimal Amount { get; set; }
         [Required]
         public decimal CurrentPrice { get; set; }
@@ -22,6 +23,17 @@ namespace portfolio_EF.Models
         public decimal AveragePurchasePrice { get; set; }
         public string PictureName { get; set; }
         public DateTime DateUpdate { get; set; }
-        public List<Transaction> transactions;
+        // навигационное свойство
+        public List<Transaction> transactions { get; set; }
+
+        public Coin(string name, string symbol)
+        {
+            Name = name;
+            Symbol = symbol;
+            Amount = 0;
+            DateUpdate = DateTime.Now;
+            transactions = new List<Transaction>();
+        }
+
     }
 }

@@ -17,7 +17,16 @@ namespace portfolio_EF.Models
         public decimal Amount { get; set; }
         public decimal Priсe { get; set; }
         public DateTime AddDate { get; set; }
-        public List<Coin> transactionCoin;
+        // навигационное свойство
+        public List<Coin> transactionCoins { get; set; }
+
+        public Transaction(string side, string transactionSymbol)
+        {
+            Side = side;
+            TransactionSymbol = transactionSymbol;
+            AddDate = DateTime.Now;
+            transactionCoins = new List<Coin>();
+        }
 
     }
 }
