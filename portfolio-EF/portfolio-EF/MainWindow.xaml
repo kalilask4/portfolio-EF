@@ -37,7 +37,7 @@
                 <Label>Coins</Label>
                 <Button x:Name="btnAddCoin" Click="btnAddCoin_Click">
                     Add coin</Button>
-                <Button x:Name="btnDeleteCoin">
+                <Button x:Name="btnDeleteCoin" Click="btnDeleteCoin_Click">
                     Delete coin</Button>
                 <Button x:Name="btnEditCoin">
                     Edit coin</Button>

@@ -52,5 +52,16 @@ namespace portfolio_EF
             }
 
         }
+
+        private void btnDeleteCoin_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure?", "Delete?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Coin coin = CoinsGrid.SelectedItem as Coin;
+                db.Coins.Remove(coin);
+                db.SaveChanges();
+            }
+        }
     }
 }
