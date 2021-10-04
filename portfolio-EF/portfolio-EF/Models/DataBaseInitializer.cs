@@ -10,40 +10,77 @@ namespace portfolio_EF.Models
     class DataBaseInitializer : DropCreateDatabaseIfModelChanges<EntityContext>
     {
         protected override void Seed(EntityContext context) {
-            context.Coins.AddRange(new Coin[]
+            Random r = new Random();
+            var coins = new List<Coin>();
+            var transactions = new List<Transaction>();
+
+            for (var i = 0; i < 10; i++)
             {
-                new Coin{
-                    Name = "CoinName0",
-                    Symbol = "C0"
-                },
-                new Coin{
-                    Name = "CoinName1",
-                    Symbol = "C1"
-                },
-                new Coin{
-                    Name = "CoinName2",
-                    Symbol = "C2"
-                },
-                new Coin{},
-            });
+                var coin = new Coin($"Coin {i}", $"C0{i}");
+                coins.Add(coin);
+            }
+
+            for (var i = 0; i < 5; i++)
+            {
+                var transaction = new Transaction("BUY", $"TR{i}");
+                transactions.Add(transaction);
+            }
+
+            //Добавить транш
+            transactions.Add(new Transaction("Coin3", coins[3]));
+
+            //Привязка монет и транзакций
+            coins[0].transactions.Add(transactions[0]);
+            transactions[0].transactionCoins.Add(coins[0]);
+            transactions[0].transactionCoins.Add(coins[1]);
+
+            context.Coins.AddRange(coins);
+            context.Transactions.AddRange(transactions);
+
+
+            //    context.Coins.AddRange(
+
+            //        new Coin[]
+            //{
+            //    coins[0] = new Coin{
+            //        Name = "CoinName0",
+            //        Symbol = "C0"
+            //    },
+            //    coins[1] = new Coin{
+            //        Name = "CoinName1",
+            //        Symbol = "C1"
+            //    },
+            //    coins[2] = new Coin{
+            //        Name = "CoinName2",
+            //        Symbol = "C2"
+            //    }
+            //coins[3] = new Coin{});
+      
+            /*
             context.Transactions.AddRange(new Transaction[]
             {
-                new Transaction
+                transactions[0] = new Transaction
                 {
                     Side = "BUY",
                     TransactionSymbol = "TRB0"
                 },
-                new Transaction
+                transactions[1] = new Transaction
                 {
                     Side = "SELL",
                     TransactionSymbol = "TRB2"
                 },
-                new Transaction
+                transactions[2] = new Transaction
                 {
                     Side = "BUY",
                     TransactionSymbol = "TRB3",
                 }
             });
+
+            context.Coins.Find(0).transactions.Add(context.Transactions.Find(0));
+            context.Coins.Find(1).transactions.Add(context.Transactions.Find(0));
+            context.Transactions.Find(0).transactionCoins.Add(context.Coins.Find(0));
+            context.Transactions.Find(0).transactionCoins.Add(context.Coins.Find(1));
+            */
         }
     }
 
