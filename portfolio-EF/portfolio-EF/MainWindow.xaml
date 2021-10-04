@@ -39,7 +39,7 @@
                     Add coin</Button>
                 <Button x:Name="btnDeleteCoin" Click="btnDeleteCoin_Click">
                     Delete coin</Button>
-                <Button x:Name="btnEditCoin">
+                <Button x:Name="btnEditCoin" Click="btnEditCoin_Click">
                     Edit coin</Button>
             </StackPanel>
         </Grid>

@@ -63,5 +63,27 @@ namespace portfolio_EF
                 db.SaveChanges();
             }
         }
+
+        private void btnEditCoin_Click(object sender, RoutedEventArgs e)
+        {
+            Coin coin = CoinsGrid.SelectedItem as Coin;
+
+            EditCoinWindow editCoinWindow = new EditCoinWindow(coin);
+            var result = editCoinWindow.ShowDialog();
+            if (result == true)
+            {
+                db.SaveChanges();
+                editCoinWindow.Close();
+            }
+            else
+            {
+                //return start value
+                db.Entry(coin).Reload();
+
+                //reload DataConext
+                CoinsGrid.DataContext = null;
+                CoinsGrid.DataContext = db.Coins.Local;
+            }
+        }
     }
 }
