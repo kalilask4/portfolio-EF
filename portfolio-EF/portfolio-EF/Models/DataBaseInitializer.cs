@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace portfolio_EF.Models
             {
                 var coin = new Coin($"Coin {i}", $"C0{i}");
                 coins.Add(coin);
+                //Trace.WriteLine($"Test setup coin in \"for\": {coin}");
             }
 
             for (var i = 0; i < 5; i++)
@@ -33,6 +35,9 @@ namespace portfolio_EF.Models
             coins[0].transactions.Add(transactions[0]);
             transactions[0].transactionCoins.Add(coins[0]);
             transactions[0].transactionCoins.Add(coins[1]);
+            Trace.WriteLine("Test setup coin " + transactions[0].transactionCoins[0].ToString());
+
+
 
             context.Coins.AddRange(coins);
             context.Transactions.AddRange(transactions);
