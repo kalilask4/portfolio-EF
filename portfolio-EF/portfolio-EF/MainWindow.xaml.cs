@@ -37,11 +37,19 @@ namespace portfolio_EF
 
         }
 
-       
 
-
+  
         private void btnAddCoin_Click(object sender, RoutedEventArgs e)
         {
+            var coin = new Coin();
+            EditCoinWindow editCoinWindow = new EditCoinWindow(coin);
+            var result = editCoinWindow.ShowDialog();
+            if (result == true)
+            {
+                db.Coins.Add(coin);
+                db.SaveChanges();
+                editCoinWindow.Close();
+            }
 
         }
     }
