@@ -5,19 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:portfolio_EF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="1300">
+        Title="MainWindow" Height="600" Width="1200">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontFamily" Value="Brevia Light"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontFamily" Value="Brevia"/>
+            <Setter Property="Background" Value="BlanchedAlmond"/>
+            <Setter Property="Opacity" Value="0.78"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid Margin="5 5 5 5" x:Name="CoinsGrid" Grid.Column="0" ItemsSource="{Binding}"/>
-        <DataGrid Margin="5 5 5 5" x:Name="TransactionsGrid" Grid.Column="2" ItemsSource="{Binding}"/>
+        <Grid Margin="5 5 5 5" x:Name="CoinButtonsGrid" Grid.Column="0">
+            <StackPanel x:Name="stackButtons">
+                <Label>Coins</Label>
+                <Button x:Name="btnAddCoin" Click="btnAddCoin_Click">
+                    Add coin</Button>
+                <Button x:Name="btnDeleteCoin">
+                    Delete coin</Button>
+                <Button x:Name="btnEditCoin">
+                    Edit coin</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="5 5 5 5" x:Name="TransactionButtonsGrid" Grid.Column="0" Grid.Row="1">
+        <StackPanel>
+                <Label>Transactions</Label>
+                <Button x:Name="btnAddTransaction">
+                    Add Transaction</Button>
+                <Button x:Name="btnDeleteTransaction">
+                    Delete Transaction</Button>
+                <Button x:Name="btnEditTransaction">
+                    Edit Transaction</Button>
+            </StackPanel>
+        </Grid>
+        <DataGrid Margin="5 5 5 15" x:Name="CoinsGrid" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}"/>
+        <DataGrid Margin="5 5 5 5" x:Name="TransactionsGrid" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}"/>
+        <DataGrid Margin="15 5 5 5" x:Name="Desk" Grid.RowSpan="2" Grid.Column="2" ItemsSource="{Binding}"/>
         
+        
+        
+
+        
+
     </Grid>
 </Window>
