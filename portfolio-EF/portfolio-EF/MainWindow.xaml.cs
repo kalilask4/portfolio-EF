@@ -1,5 +1,7 @@
-﻿using System;
+﻿using portfolio_EF.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,14 @@ namespace portfolio_EF
     /// </summary>
     public partial class MainWindow : Window
     {
+        EntityContext db;
+
         public MainWindow()
         {
             InitializeComponent();
+            db = new EntityContext();
+            db.Coins.Load();
+            CoinsGrid.ItemsSource = db.Coins.Local.ToBindingList();
         }
     }
 }

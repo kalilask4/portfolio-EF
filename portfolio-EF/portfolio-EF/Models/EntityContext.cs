@@ -13,6 +13,7 @@ namespace portfolio_EF.Models
         {
             Database.SetInitializer(new DataBaseInitializer());
         }
+
         public DbSet<Coin> Coins { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
     }
