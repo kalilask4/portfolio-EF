@@ -29,7 +29,9 @@ namespace portfolio_EF
             InitializeComponent();
             db = new EntityContext();
             db.Coins.Load();
-            CoinsGrid.ItemsSource = db.Coins.Local.ToBindingList();
+            CoinsGrid.ItemsSource = db.Coins.Local.ToBindingList();            
+            db.Transactions.Load();
+            TransactionsGrid.ItemsSource = db.Transactions.Local.ToBindingList();
         }
     }
 }

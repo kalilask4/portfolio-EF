@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:portfolio_EF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="750" Width="1300">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="CoinsGrid" Grid.Column="0" ItemsSource="{Binding}"/>
-        <DataGrid x:Name="TransactionsGrid" Grid.Column="2" ItemsSource="{Binding}"/>
+        <DataGrid Margin="5 5 5 5" x:Name="CoinsGrid" Grid.Column="0" ItemsSource="{Binding}"/>
+        <DataGrid Margin="5 5 5 5" x:Name="TransactionsGrid" Grid.Column="2" ItemsSource="{Binding}"/>
         
     </Grid>
 </Window>
