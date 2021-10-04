@@ -25,7 +25,7 @@ namespace portfolio_EF.Models
             Side = side;
             TransactionSymbol = transactionSymbol;
             AddDate = DateTime.Now;
-            transactionCoins = new List<Coin>();
+            transactionCoins = new List<Coin>(2);
         }
 
         public Transaction(string side, string transactionSymbol, Coin debetCoin, Coin creditCoin)
@@ -33,7 +33,7 @@ namespace portfolio_EF.Models
             Side = side;
             TransactionSymbol = transactionSymbol;
             AddDate = DateTime.Now;
-            transactionCoins = new List<Coin>();
+            transactionCoins = new List<Coin>(2);
             transactionCoins.Add(debetCoin);
             transactionCoins.Add(creditCoin);
         }
@@ -43,7 +43,7 @@ namespace portfolio_EF.Models
             Side = "DefaultSide";
             TransactionSymbol = "DEFDEF";
             AddDate = DateTime.Now;
-            transactionCoins = new List<Coin>();
+            transactionCoins = new List<Coin>(2);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace portfolio_EF.Models
     {
         public EntityContext() : base("DefaultConnection")
         {
-          
+            Database.SetInitializer(new DataBaseInitializer());
         }
         public DbSet<Coin> Coins { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
