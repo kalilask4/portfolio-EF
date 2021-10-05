@@ -48,7 +48,7 @@
                 <Label>Transactions</Label>
                 <Button x:Name="btnAddTransaction" Click="btnAddTransaction_Click">
                     Add Transaction</Button>
-                <Button x:Name="btnDeleteTransaction">
+                <Button x:Name="btnDeleteTransaction" Click="btnDeleteTransaction_Click">
                     Delete Transaction</Button>
                 <Button x:Name="btnEditTransaction">
                     Edit Transaction</Button>

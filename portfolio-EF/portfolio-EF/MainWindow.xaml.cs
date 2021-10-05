@@ -99,5 +99,17 @@ namespace portfolio_EF
 
 
         }
+
+        private void btnDeleteTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure?", "Delete?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Transaction transaction = TransactionsGrid.SelectedItem as Transaction;
+                db.Transactions.Remove(transaction);
+                db.SaveChanges();
+            }
+                
+        }
     }
 }
