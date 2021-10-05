@@ -79,11 +79,25 @@ namespace portfolio_EF
             {
                 //return start value
                 db.Entry(coin).Reload();
-
                 //reload DataConext
                 CoinsGrid.DataContext = null;
                 CoinsGrid.DataContext = db.Coins.Local;
             }
+        }
+
+        private void btnAddTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var transaction = new Transaction();
+            EditTransactionWindow editTransactionWindow = new EditTransactionWindow(transaction);
+            var result = editTransactionWindow.ShowDialog();
+            if (result == true)
+            {
+                db.Transactions.Add(transaction);
+                db.SaveChanges();
+                editTransactionWindow.Close();
+            }
+
+
         }
     }
 }

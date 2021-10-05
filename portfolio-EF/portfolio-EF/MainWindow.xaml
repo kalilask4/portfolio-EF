@@ -46,7 +46,7 @@
         <Grid Margin="5 5 5 5" x:Name="TransactionButtonsGrid" Grid.Column="0" Grid.Row="1">
         <StackPanel>
                 <Label>Transactions</Label>
-                <Button x:Name="btnAddTransaction">
+                <Button x:Name="btnAddTransaction" Click="btnAddTransaction_Click">
                     Add Transaction</Button>
                 <Button x:Name="btnDeleteTransaction">
                     Delete Transaction</Button>
@@ -61,7 +61,8 @@
         
         
 
-        
+        
+
 
     </Grid>
 </Window>
