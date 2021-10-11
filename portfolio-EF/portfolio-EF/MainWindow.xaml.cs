@@ -96,13 +96,25 @@ namespace portfolio_EF
 
         public void getAllTransactionsForCoin(object sender, RoutedEventArgs e)
         {
-            ListAllTransactionForCoin.ItemsSource = (from coin in db.Coins
-                                                   from transaction in coin.transactions
-                                                   select new
+            Coin coin = CoinsDataGrid.SelectedItem as Coin;
+            ListAllTransactionForCoin.ItemsSource = (from c in db.Coins
+                                                     from t in c.transactions
+                                                     where c.CoinId == coin.CoinId
+                                                     select new
                                                    {
-                                                       Coin_name = coin.Name,
-                                                       Trans_symbol = transaction.TransactionSymbol
+                                                       Coin_name = c.Name,
+                                                       Trans_symbol = t.TransactionSymbol
                                                    }).ToList();
+
+            //Coin coin = CoinsDataGrid.SelectedItem as Coin;
+            //ListAllTransactionForCoin.ItemsSource = (from c in db.Coins
+            //                                       from t in coin.transactions
+            //                                       where c.CoinId == coin.CoinId
+            //                                         select new
+            //                                       {
+            //                                           Coin_name = coin.Name,
+            //                                           Trans_symbol = t.TransactionSymbol
+            //                                       }).ToList();
         }
 
 
