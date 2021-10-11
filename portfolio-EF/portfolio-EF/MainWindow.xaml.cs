@@ -1,7 +1,9 @@
 ﻿using portfolio_EF.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace portfolio_EF
 {
@@ -23,22 +26,76 @@ namespace portfolio_EF
     public partial class MainWindow : Window
     {
         EntityContext db;
+        ObservableCollection<Coin> coins;
+        //ObservableCollection<string> coinDescriptions;
 
         public MainWindow()
         {
             InitializeComponent();
             db = new EntityContext();
-
             db.Coins.Load();
-            CoinsGrid.ItemsSource = db.Coins.Local.ToBindingList(); 
-            
             db.Transactions.Load();
+            CoinsDataGrid.ItemsSource = db.Coins.Local.ToBindingList();
             TransactionsGrid.ItemsSource = db.Transactions.Local.ToBindingList();
 
+
+            coins = new ObservableCollection<Coin>();
+            coins = db.Coins.Local;
+           
+            cBoxCoin.ItemsSource = db.Coins.Local.ToBindingList();     
+            
+            getAllCoinsTransactions();
+           
+
+            Binding binding = new Binding();
+
+            binding.ElementName = "myTextBox"; // элемент-источник
+            binding.Path = new PropertyPath("Text"); // свойство элемента-источника
+            myTextBlock.SetBinding(TextBlock.TextProperty, binding); // установка привязки для элемента-приемника
+
+
+           
+        }
+        
+
+        public IQueryable<Transaction> GetTransactions()
+        {
+            using (db)
+            {
+                return db.Transactions;
+            }
         }
 
 
-  
+
+        private void phonesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+                Transaction transaction = new Transaction();
+
+                Coin coin = CoinsDataGrid.SelectedItem as Coin;
+                var transactions = db.Transactions.Where(c => c.transactionCoins.Contains(coin)).ToList();
+                
+                MessageBox.Show(transactions[1].Side);
+
+            
+        }
+
+        //all coins and their transactions
+        public void getAllCoinsTransactions()
+        {
+            ListAllCoinsTransaction.ItemsSource = (from coin in db.Coins
+                                    from transaction in coin.transactions
+                                    select new
+                                    {
+                                        Coin_name = coin.Name,
+                                        Trans_symbol = transaction.TransactionSymbol
+                                    }).ToList();
+            
+        }
+
+       
+
         private void btnAddCoin_Click(object sender, RoutedEventArgs e)
         {
             var coin = new Coin();
@@ -58,7 +115,7 @@ namespace portfolio_EF
             var result = MessageBox.Show("Are you sure?", "Delete?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                Coin coin = CoinsGrid.SelectedItem as Coin;
+                Coin coin = CoinsDataGrid.SelectedItem as Coin;
                 db.Coins.Remove(coin);
                 db.SaveChanges();
             }
@@ -66,7 +123,7 @@ namespace portfolio_EF
 
         private void btnEditCoin_Click(object sender, RoutedEventArgs e)
         {
-            Coin coin = CoinsGrid.SelectedItem as Coin;
+            Coin coin = CoinsDataGrid.SelectedItem as Coin;
 
             EditCoinWindow editCoinWindow = new EditCoinWindow(coin);
             var result = editCoinWindow.ShowDialog();
@@ -77,11 +134,11 @@ namespace portfolio_EF
             }
             else
             {
-                //return start value
+       
                 db.Entry(coin).Reload();
-                //reload DataConext
-                CoinsGrid.DataContext = null;
-                CoinsGrid.DataContext = db.Coins.Local;
+          
+                CoinsDataGrid.DataContext = null;
+                CoinsDataGrid.DataContext = db.Coins.Local;
             }
         }
 
@@ -111,5 +168,13 @@ namespace portfolio_EF
             }
                 
         }
+
+        private void btnUpdateAllCoinsTransaction_Click(object sender, RoutedEventArgs e)
+        {
+
+            getAllCoinsTransactions();
+        }
+
+
     }
 }

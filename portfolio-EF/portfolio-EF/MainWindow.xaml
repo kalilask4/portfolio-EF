@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:portfolio_EF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="MainWindow" Height="700" Width="1400"
+   >
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="5"/>
@@ -21,17 +22,40 @@
             <Setter Property="Opacity" Value="0.78"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
+            <DataTemplate x:Key="ListItemTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid Grid.Column="3" Grid.Row ="0" Grid.RowSpan="2">
+            <!--Visibility="Collapsed">-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ListBox Grid.Row="0" Name="ListAllCoinsTransaction">
+                </ListBox>
+                <Button Grid.Row="1" x:Name="btnUpdateAllCoinsTransaction" Click="btnUpdateAllCoinsTransaction_Click" >Update</Button>
+            </Grid>
+            
+            
+            
+        </Grid>
+        
+        
         <Grid Margin="5 5 5 5" x:Name="CoinButtonsGrid" Grid.Column="0">
             <StackPanel x:Name="stackButtons">
                 <Label>Coins</Label>
@@ -54,14 +78,233 @@
                     Edit Transaction</Button>
             </StackPanel>
         </Grid>
-        <DataGrid Margin="5 5 5 15" x:Name="CoinsGrid" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}"/>
+        <DataGrid Margin="5 5 5 15" x:Name="CoinsDataGrid" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}">
+            
+            
+        </DataGrid>
+                  
+                 
+
         <DataGrid Margin="5 5 5 5" x:Name="TransactionsGrid" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}"/>
-        <DataGrid Margin="15 5 5 5" x:Name="Desk" Grid.RowSpan="2" Grid.Column="2" ItemsSource="{Binding}"/>
-        
-        
-        
+        <!--SelectionChanged="chooseTransaction"/>-->
+
+
+        <Grid x:Name="CoinTransactionsGridfooter" Grid.Row="1" Grid.Column="2">
+
+
+            <Grid>
+                <ListBox x:Name="transactionsList">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                
+                                
+                               
+                                <TextBlock FontSize="10" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                                <!--<TextBlock FontSize="10" Text="{Binding Path=Symbol}" HorizontalAlignment="Center" />
+                                <TextBlock FontSize="10" Text="{Binding Path=DateUpdate}" HorizontalAlignment="Center" />-->
+                                <!--<TextBlock FontSize="10" Text="{Binding Path=Transaction.Side}" HorizontalAlignment="Center" />-->
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+        </Grid>
+
+
+
+
+
+
+        <Grid x:Name="CoinTransactionsGrid" Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <!--<RowDefinition></RowDefinition>-->
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" >
+                    <TextBlock>Choose coin:</TextBlock>
+                    <ComboBox x:Name="cBoxCoin" Margin="0,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}" SelectedValuePath="CointId" SelectedIndex="0"/>
+
+                <ListBox Name="ListAllTransactionForCoin">
+                </ListBox>
+            </StackPanel>
+
+            <!--<ScrollViewer Grid.Row="1">-->
+                <!--<ListBox Name="lbCoinTransaction2">
+                    --><!--DataContext="{Binding ElementName=cBoxCoin, Path=SelectedItem}">-->
+                <!--ItemsSource="{Binding Path=Transactions}">--><!--
+                 
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            
+                            --><!--<Grid Margin="10">-->
+                                <!--<TextBlock>Choose coin:</TextBlock>-->
+                                <!--<Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" >
+
+                                    <TextBox x:Name="textBox1" Height="25" />
+                                    <TextBox x:Name="textBox2" Height="25" 
+                         Text="{Binding ElementName=textBox1, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    
+                                    
+                                    --><!--<TextBlock></TextBlock>
+                                    <TextBlock Text="{Binding Path=TransactionId}"></TextBlock>--><!--
+                                </StackPanel>
+
+
+                                --><!--<Image Width="80" Source="{Binding Path=FileName, Converter={StaticResource ImageConverter}}"/>-->
+                                <!--<StackPanel Grid.Column="1" >
+                                    --><!--<TextBlock Text="{Binding Path=Side}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Amount}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Price}" Margin="30,0,0,0"/>--><!--
+                                    
+                                    <TextBlock Text="{Binding Path=TransactionSymbol}" Margin="30,0,0,0"/>
+                                </StackPanel>-->
+                            <!--</Grid>--><!--
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                </ListBox>-->
+                    
+            <!--</ScrollViewer>-->
+                
+
+            
+            <!--test-->
+            <StackPanel x:Name="stackPanelTestBinding" Grid.Row="2" Visibility="Collapsed"> 
+                <TextBox x:Name="myTextBox" Height="25"/>
+                <TextBlock x:Name="myTextBlock" Text="{Binding ElementName=myTextBox,Path=Text}" Height="25" />
+                <TextBox x:Name="textBox1" Height="25" />
+                <TextBox x:Name="textBox2" Height="25" 
+                         Text="{Binding ElementName=textBox1, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+
+
+
+            <!--<ScrollViewer Grid.Row="0" Grid.Column="2">
+                <ListBox Name="lbCoinTransaction"                      
+                DataContext="{Binding ElementName=CoinsDataGrid, Path=SelectedItem}"
+                ItemsSource="{Binding Path=Transactions}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                --><!--<Image Width="80" Source="{Binding Path=FileName, Converter={StaticResource ImageConverter}}"/>--><!--
+                                <StackPanel Grid.Column="1" >
+                                    --><!--<TextBlock Text="{Binding Path=Side}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Amount}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Price}" Margin="30,0,0,0"/>--><!--
+                                    <TextBlock Text="{Binding Path=TransactionSymbol}" Margin="30,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>-->
+
+
+
+
+        </Grid>
 
         
+
+
+        <!--<StackPanel Margin="15 5 5 5" x:Name="DeskCoin" Grid.Row="0" Grid.Column="2">
+            <TextBlock
+                Text="{Binding ElementName=CoinsGrid, Path=SelectedItem.Name}">
+                   --><!--Text="{Binding ElementName=cBoxCoin SelectedItem.Description}"--><!--
+            </TextBlock>
+            <TextBlock
+                Text="{Binding ElementName=CoinsGrid, Path=SelectedItem.transactions}">
+            </TextBlock>-->
+
+        <!--<StackPanel Grid.Row="0" Grid.Column="2">
+                <ListBox x:Name="listBox" ItemTemplate= "{StaticResource ListItemTemplate}"/>
+            </StackPanel>-->
+
+
+            <!--<ScrollViewer Grid.Row="0" Grid.Column="2">
+                <ListBox Name="lbCoins"                      
+                DataContext="{Binding ElementName=CoinsGrid,Path=SelectedItem.transactions}"
+                ItemsSource="{Binding Path=Side}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                --><!--<Image Width="80" Source="{Binding Path=FileName, Converter={StaticResource ImageConverter}}"/>--><!--
+                                <StackPanel Grid.Column="1" >
+                                    <TextBlock Text="{Binding Path=Side}" Margin="30,0,0,0"/>
+                                    <TextBlock Text="{Binding Path=Amount}" Margin="30,0,0,0"/>
+                                    --><!--<TextBlock Text="{Binding Path=Year}" Margin="30,0,0,0"/>
+                                    <TextBlock Text="{Binding Path=Color}" Margin="30,0,0,0"/>--><!--
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>-->
+
+            <!--<DataGrid ItemsSource="{Binding  ElementName=CoinsGrid, Path=SelectedItem.transactions}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Side">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="Amount"/>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>-->
+
+            <!--<ListView>
+                <ListViewItem Content="CoinsGrid" ></ListViewItem>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Side}" 
+                          Header="Side"
+                          Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Symbol}" 
+                          Header="Month"
+                          Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Amount}" 
+                          Header="Day"
+                          Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Price}" 
+                          Header="Day"
+                          Width="50"/>
+                    </GridView>
+                </ListView.View>
+                --><!--<ListView.ItemsSource>
+                </ListView.ItemsSource>--><!--
+            </ListView>-->
+
+
+
+        <!--</StackPanel>-->
+        
+
+        <!--<DataGrid Margin="15 5 5 5" x:Name="DeskCoin" Grid.Row="0" Grid.Column="2" ItemsSource="{Binding}"/>
+        <DataGrid Margin="15 5 5 5" x:Name="DeskTransaction" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding}"/>
+
+        <TextBlock Grid.Row="1" TextWrapping="WrapWithOverflow"  TextAlignment="Center"
+            Text="{Binding ElementName=cBoxTransport, Path=SelectedItem.TransportDescription}" Margin="0,30,0,0"/>-->
+
+
+
+
+
 
 
     </Grid>

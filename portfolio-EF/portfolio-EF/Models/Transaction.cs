@@ -54,5 +54,12 @@ namespace portfolio_EF.Models
             AddDate = DateTime.Now;
             transactionCoins = new List<Coin>(2);
         }
+
+        public override string ToString()
+        {
+            return $"trans {TransactionId} symbol - {TransactionSymbol}";
+        }
+
+
     }
 }

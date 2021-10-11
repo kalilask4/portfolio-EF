@@ -44,10 +44,16 @@ namespace portfolio_EF.Models
             transactions = new List<Transaction>();
         }
 
+
         public override string ToString()
         {
-            return $"id {this.CoinId} Coin name: {Name} amout = {Amount} symbol: {Symbol} " +
-                $"transaction symbol: {transactions.First().TransactionSymbol}";
+            return $"transport {CoinId} {Name}";
+        }
+
+        public string Description()
+        {
+            return $"Coin name: {Name} symbol: {Symbol} amout = {Amount}  " +
+                $"transaction: {transactions.First().TransactionSymbol}";
         }
 
     }

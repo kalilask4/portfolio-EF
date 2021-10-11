@@ -33,11 +33,11 @@ namespace portfolio_EF.Models
 
             //Привязка монет и транзакций
             coins[0].transactions.Add(transactions[0]);
+            coins[0].transactions.Add(transactions[1]);
             transactions[0].transactionCoins.Add(coins[0]);
             transactions[0].transactionCoins.Add(coins[1]);
+            transactions[1].transactionCoins.Add(coins[0]);
             Trace.WriteLine("Test setup coin " + transactions[0].transactionCoins[0].ToString());
-
-
 
             context.Coins.AddRange(coins);
             context.Transactions.AddRange(transactions);
