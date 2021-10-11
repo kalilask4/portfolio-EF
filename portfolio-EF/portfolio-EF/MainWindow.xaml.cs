@@ -94,7 +94,18 @@ namespace portfolio_EF
             
         }
 
-       
+        public void getAllTransactionsForCoin(object sender, RoutedEventArgs e)
+        {
+            ListAllTransactionForCoin.ItemsSource = (from coin in db.Coins
+                                                   from transaction in coin.transactions
+                                                   select new
+                                                   {
+                                                       Coin_name = coin.Name,
+                                                       Trans_symbol = transaction.TransactionSymbol
+                                                   }).ToList();
+        }
+
+
 
         private void btnAddCoin_Click(object sender, RoutedEventArgs e)
         {
