@@ -77,27 +77,26 @@
                 <TextBlock>Choose coin:</TextBlock>
                 <ComboBox x:Name="cBoxCoin" Margin="0,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}"
                           SelectedValuePath="CoinId" SelectionChanged="cBoxCoin_SelectionChanged" SelectedIndex="0"/>
-                          <!--SelectedIndex="0"--> 
-                          <!--SelectionChanged="cBoxCoin_SelectionChanged"/>-->
-                <!--SelectionChanged="transactionsOnCoinToList"/>-->
+                <TextBlock>Coin description</TextBlock>
                 <TextBlock Name="tbDeskCoin" Text="{Binding}"></TextBlock>
                 <ListBox Name="listTransactionsOnCoin">
                 </ListBox>
             </StackPanel>
         </Grid>
-        
-        <Grid x:Name="grCoinsOnCoinGrid" Grid.Row="1" Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <!--<RowDefinition></RowDefinition>-->
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" >
-                    <TextBlock>Choose Transaction:</TextBlock>
-                    <ComboBox x:Name="cBoxCoin0" Margin="0,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}" SelectedValuePath="CointId" SelectedIndex="0"/>
-                <ListBox Name="ListAllCoinsForTransaction">
-                    </ListBox>
-                </StackPanel>
+
+        <Grid x:Name="grCoinsOnTransaction" Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" >
+                <TextBlock>Choose transaction:</TextBlock>
+                <ComboBox x:Name="cBoxTransaction" Margin="0,10,10,10" DisplayMemberPath="TransactionSymbol" ItemsSource="{Binding}"
+                          SelectedValuePath="TransactionId" SelectionChanged="cBoxTransaction_SelectionChanged" SelectedIndex="0"/>
+                <TextBlock>Transaction description</TextBlock>
+                <TextBlock Name="tbDeskTransaction" Text="{Binding}"></TextBlock>
+                <ListBox Name="ListAllCoinsForTransaction"></ListBox>
+            </StackPanel>
         </Grid>
         
         <!--test, set Collapsed-->

@@ -36,7 +36,9 @@ namespace portfolio_EF
             
             
             cBoxCoin.ItemsSource = db.Coins.Local.ToBindingList();
+            cBoxTransaction.ItemsSource = db.Transactions.Local.ToBindingList();
             tbDeskCoin.Text = cBoxCoin.SelectedItem?.ToString();
+            tbDeskTransaction.Text = cBoxTransaction.SelectedItem?.ToString();
 
             Binding binding = new Binding();
 
@@ -46,6 +48,13 @@ namespace portfolio_EF
 
         }
 
+        private void cBoxTransaction_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = (Transaction)(sender as ComboBox).SelectedItem;
+            string text = selectedItem.ToString();
+            tbDeskTransaction.Text = text;
+        }       
+        
         private void cBoxCoin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Disclaims the penultimate selection.
@@ -113,13 +122,13 @@ namespace portfolio_EF
         {
             Transaction transaction = grTransactionsData.SelectedItem as Transaction;
             ListAllCoinsForTransaction.ItemsSource = (from c in db.Coins
-                                                     from t in c.transactions
-                                                     where t.TransactionId == transaction.TransactionId
-                                                     select new
-                                                     {
-                                                         Coin_name = c.Name,
-                                                         Trans_symbol = t.TransactionSymbol
-                                                     }).ToList();
+                                                      from t in c.transactions
+                                                      where t.TransactionId == transaction.TransactionId
+                                                      select new
+                                                      {
+                                                          Coin_name = c.Name,
+                                                          Trans_symbol = t.TransactionSymbol
+                                                      }).ToList();
         }
 
 
