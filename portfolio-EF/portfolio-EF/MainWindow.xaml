@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:portfolio_EF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1400">
+        Title="MainWindow" Height="700" Width="1450">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="5"/>
@@ -32,7 +32,7 @@
             <ColumnDefinition Width="1.2*"></ColumnDefinition>
             <ColumnDefinition Width="5*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
@@ -41,14 +41,12 @@
         <Grid Grid.Column="3" Grid.Row ="0" Grid.RowSpan="2">
             <!--Visibility="Collapsed">-->
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBox>All Coins and its Transaction</TextBox>
-                <ListBox Grid.Row="0" Name="ListAllCoinsTransaction">
-                </ListBox>
-                <Button Grid.Row="1" x:Name="btnUpdateAllCoinsTransaction" Click="btnUpdateAllCoinsTransaction_Click" >Update</Button>
+                <StackPanel>
+                    <TextBox>All relations Coins-Transaction</TextBox>
+                    <ListBox Grid.Row="0" Name="listAllRelationsCoinsTransaction">
+                    </ListBox>
+                    <Button Grid.Row="1" x:Name="btnUpdateAllRelationsCoinsTransaction" Click="btnUpdateAllRelationsCoinsTransaction_Click">Update</Button>
+                </StackPanel>
             </Grid>
         </Grid>
         <Grid Margin="5 5 5 5" x:Name="CoinButtonsGrid" Grid.Column="0">

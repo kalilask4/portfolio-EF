@@ -65,7 +65,7 @@ namespace portfolio_EF
         //all coins and their transactions
         public void getAllCoinsTransactions()
         {
-            ListAllCoinsTransaction.ItemsSource = (from coin in db.Coins
+            listAllRelationsCoinsTransaction.ItemsSource = (from coin in db.Coins
                                     from transaction in coin.transactions
                                     select new
                                     {
@@ -175,7 +175,7 @@ namespace portfolio_EF
                 
         }
 
-        private void btnUpdateAllCoinsTransaction_Click(object sender, RoutedEventArgs e)
+        private void btnUpdateAllRelationsCoinsTransaction_Click(object sender, RoutedEventArgs e)
         {
 
             getAllCoinsTransactions();
