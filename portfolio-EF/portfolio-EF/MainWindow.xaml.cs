@@ -1,22 +1,10 @@
 ﻿using portfolio_EF.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace portfolio_EF
 {
@@ -35,26 +23,20 @@ namespace portfolio_EF
             db = new EntityContext();
             db.Coins.Load();
             db.Transactions.Load();
-            CoinsDataGrid.ItemsSource = db.Coins.Local.ToBindingList();
-            TransactionsGrid.ItemsSource = db.Transactions.Local.ToBindingList();
-
+            grCoinsData.ItemsSource = db.Coins.Local.ToBindingList();
+            TransactionsDataGrid.ItemsSource = db.Transactions.Local.ToBindingList();
 
             coins = new ObservableCollection<Coin>();
             coins = db.Coins.Local;
-           
-            cBoxCoin.ItemsSource = db.Coins.Local.ToBindingList();     
-            
+      
+            cBoxCoin.ItemsSource = db.Coins.Local.ToBindingList();
             getAllCoinsTransactions();
-           
-
+   
             Binding binding = new Binding();
 
             binding.ElementName = "myTextBox"; // элемент-источник
             binding.Path = new PropertyPath("Text"); // свойство элемента-источника
             myTextBlock.SetBinding(TextBlock.TextProperty, binding); // установка привязки для элемента-приемника
-
-
-           
         }
         
 
@@ -67,13 +49,12 @@ namespace portfolio_EF
         }
 
 
-
         private void phonesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
                 Transaction transaction = new Transaction();
 
-                Coin coin = CoinsDataGrid.SelectedItem as Coin;
+                Coin coin = grCoinsData.SelectedItem as Coin;
                 var transactions = db.Transactions.Where(c => c.transactionCoins.Contains(coin)).ToList();
                 
                 MessageBox.Show(transactions[1].Side);
@@ -94,10 +75,10 @@ namespace portfolio_EF
             
         }
 
-        public void getAllTransactionsForCoin(object sender, RoutedEventArgs e)
+        public void transactionsOnCoinToList(object sender, RoutedEventArgs e)
         {
-            Coin coin = CoinsDataGrid.SelectedItem as Coin;
-            ListAllTransactionForCoin.ItemsSource = (from c in db.Coins
+            Coin coin = grCoinsData.SelectedItem as Coin;
+            listTransactionsOnCoin.ItemsSource = (from c in db.Coins
                                                      from t in c.transactions
                                                      where c.CoinId == coin.CoinId
                                                      select new
@@ -105,18 +86,20 @@ namespace portfolio_EF
                                                        Coin_name = c.Name,
                                                        Trans_symbol = t.TransactionSymbol
                                                    }).ToList();
-
-            //Coin coin = CoinsDataGrid.SelectedItem as Coin;
-            //ListAllTransactionForCoin.ItemsSource = (from c in db.Coins
-            //                                       from t in coin.transactions
-            //                                       where c.CoinId == coin.CoinId
-            //                                         select new
-            //                                       {
-            //                                           Coin_name = coin.Name,
-            //                                           Trans_symbol = t.TransactionSymbol
-            //                                       }).ToList();
         }
 
+        public void getAllCoinsForTransaction(object sender, RoutedEventArgs e)
+        {
+            Transaction transaction = TransactionsDataGrid.SelectedItem as Transaction;
+            ListAllCoinsForTransaction.ItemsSource = (from c in db.Coins
+                                                     from t in c.transactions
+                                                     where t.TransactionId == transaction.TransactionId
+                                                     select new
+                                                     {
+                                                         Coin_name = c.Name,
+                                                         Trans_symbol = t.TransactionSymbol
+                                                     }).ToList();
+        }
 
 
         private void btnAddCoin_Click(object sender, RoutedEventArgs e)
@@ -138,7 +121,7 @@ namespace portfolio_EF
             var result = MessageBox.Show("Are you sure?", "Delete?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                Coin coin = CoinsDataGrid.SelectedItem as Coin;
+                Coin coin = grCoinsData.SelectedItem as Coin;
                 db.Coins.Remove(coin);
                 db.SaveChanges();
             }
@@ -146,7 +129,7 @@ namespace portfolio_EF
 
         private void btnEditCoin_Click(object sender, RoutedEventArgs e)
         {
-            Coin coin = CoinsDataGrid.SelectedItem as Coin;
+            Coin coin = grCoinsData.SelectedItem as Coin;
 
             EditCoinWindow editCoinWindow = new EditCoinWindow(coin);
             var result = editCoinWindow.ShowDialog();
@@ -160,8 +143,8 @@ namespace portfolio_EF
        
                 db.Entry(coin).Reload();
           
-                CoinsDataGrid.DataContext = null;
-                CoinsDataGrid.DataContext = db.Coins.Local;
+                grCoinsData.DataContext = null;
+                grCoinsData.DataContext = db.Coins.Local;
             }
         }
 
@@ -185,7 +168,7 @@ namespace portfolio_EF
             var result = MessageBox.Show("Are you sure?", "Delete?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                Transaction transaction = TransactionsGrid.SelectedItem as Transaction;
+                Transaction transaction = TransactionsDataGrid.SelectedItem as Transaction;
                 db.Transactions.Remove(transaction);
                 db.SaveChanges();
             }
@@ -198,6 +181,6 @@ namespace portfolio_EF
             getAllCoinsTransactions();
         }
 
-
+        
     }
 }
