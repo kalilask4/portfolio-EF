@@ -76,7 +76,7 @@
             <StackPanel Grid.Row="0" >
                 <TextBlock>Choose coin:</TextBlock>
                 <ComboBox x:Name="cBoxCoin" Margin="0,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}"
-                          SelectedValuePath="CoinId" SelectionChanged="cBoxCoin_SelectionChanged"/>
+                          SelectedValuePath="CoinId" SelectionChanged="cBoxCoin_SelectionChanged" SelectedIndex="0"/>
                           <!--SelectedIndex="0"--> 
                           <!--SelectionChanged="cBoxCoin_SelectionChanged"/>-->
                 <!--SelectionChanged="transactionsOnCoinToList"/>-->
