@@ -57,7 +57,7 @@ namespace portfolio_EF.Models
 
         public override string ToString()
         {
-            return $"trans {TransactionId} symbol - {TransactionSymbol}";
+            return $"Id {TransactionId} {TransactionSymbol} {Side}";
         }
 
 
