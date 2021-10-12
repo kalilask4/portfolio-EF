@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "portfolio-EF", "portfolio-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queries", "Queries", "{72C8FBD6-1B37-4CD8-9D37-D737E84BE4A4}"
 	ProjectSection(SolutionItems) = preProject
-		SqlQuery_1.sql = SqlQuery_1.sql
+		SympleSqlQueryesForTest.sql = SympleSqlQueryesForTest.sql
 	EndProjectSection
 EndProject
 Global

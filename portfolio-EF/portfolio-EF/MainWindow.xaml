@@ -38,17 +38,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="3" Grid.Row ="0" Grid.RowSpan="2">
-            <!--Visibility="Collapsed">-->
-            <Grid>
-                <StackPanel>
-                    <TextBox>All relations Coins-Transaction</TextBox>
-                    <ListBox Grid.Row="0" Name="listAllRelationsCoinsTransaction">
-                    </ListBox>
-                    <Button Grid.Row="1" x:Name="btnUpdateAllRelationsCoinsTransaction" Click="btnUpdateAllRelationsCoinsTransaction_Click">Update</Button>
-                </StackPanel>
-            </Grid>
-        </Grid>
+        
         <Grid Margin="5 5 5 5" x:Name="CoinButtonsGrid" Grid.Column="0">
             <StackPanel x:Name="stackButtons">
                 <Label>Coins</Label>
@@ -73,11 +63,30 @@
         </Grid>
         <DataGrid Margin="5 5 5 15" x:Name="grCoinsData" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}" 
                   SelectionChanged="transactionsOnCoinToList">
-            <!--SelectionChanged="getAllTransactionsForCoin">-->
         </DataGrid>
-        <DataGrid Margin="5 5 5 5" x:Name="TransactionsDataGrid" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}"
-        SelectionChanged="getAllCoinsForTransaction"/>
-        <Grid x:Name="TransactionCoinsGrid" Grid.Row="1" Grid.Column="2">
+        <DataGrid Margin="5 5 5 5" x:Name="grTransactionsData" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}"
+        SelectionChanged="coinsOnTransactionToList"/>
+        
+        <Grid x:Name="grTransactionsOnCoin" Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <!--<RowDefinition></RowDefinition>-->
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" >
+                <TextBlock>Choose coin:</TextBlock>
+                <ComboBox x:Name="cBoxCoin" Margin="0,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}"
+                          SelectedValuePath="CoinId" SelectionChanged="cBoxCoin_SelectionChanged"/>
+                          <!--SelectedIndex="0"--> 
+                          <!--SelectionChanged="cBoxCoin_SelectionChanged"/>-->
+                <!--SelectionChanged="transactionsOnCoinToList"/>-->
+                <TextBlock Name="tbDeskCoin" Text="{Binding}"></TextBlock>
+                <ListBox Name="listTransactionsOnCoin">
+                </ListBox>
+            </StackPanel>
+        </Grid>
+        
+        <Grid x:Name="grCoinsOnCoinGrid" Grid.Row="1" Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -90,19 +99,7 @@
                     </ListBox>
                 </StackPanel>
         </Grid>
-        <Grid x:Name="grTransactionsOnCoin" Grid.Row="0" Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <!--<RowDefinition></RowDefinition>-->
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" >
-                <TextBlock>Choose coin:</TextBlock>
-                <ComboBox x:Name="cBoxCoin" Margin="0,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}" SelectedValuePath="CointId" SelectedIndex="0"/>
-                <ListBox Name="listTransactionsOnCoin">
-                </ListBox>
-            </StackPanel>
-        </Grid>
+        
         <!--test, set Collapsed-->
             <StackPanel x:Name="stackPanelTestBinding" Grid.Row="2" Visibility="Collapsed"> 
                 <TextBox x:Name="myTextBox" Height="25"/>
@@ -111,5 +108,17 @@
                 <TextBox x:Name="textBox2" Height="25" 
                          Text="{Binding ElementName=textBox1, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
+        <Grid Grid.Column="3" Grid.Row ="0" Grid.RowSpan="2">
+            <!--Visibility="Collapsed">-->
+            <Grid>
+                <StackPanel>
+                    <TextBox>All relations Coins-Transaction</TextBox>
+                    <ListBox Grid.Row="0" Name="listAllRelationsCoinsTransaction">
+                    </ListBox>
+                    <Button Grid.Row="1" x:Name="btnUpdateAllRelationsCoinsTransaction" Click="btnUpdateAllRelationsCoinsTransaction_Click">Update</Button>
+                </StackPanel>
+            </Grid>
         </Grid>
+        </Grid>
+    
 </Window>

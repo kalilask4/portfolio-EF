@@ -47,14 +47,14 @@ namespace portfolio_EF.Models
 
         public override string ToString()
         {
-            return $"transport {CoinId} {Name}";
+            return $"Id{CoinId} - {Name}, {Symbol}, amout = {Amount} - {DateUpdate}";
         }
 
-        public string Description()
-        {
-            return $"Coin name: {Name} symbol: {Symbol} amout = {Amount}  " +
-                $"transaction: {transactions.First().TransactionSymbol}";
-        }
+        //public string Description()
+        //{
+        //    return $"Coin name: {Name} symbol: {Symbol} amout = {Amount}  " +
+        //        $"transaction: {transactions.First().TransactionSymbol}";
+        //}
 
     }
 }
