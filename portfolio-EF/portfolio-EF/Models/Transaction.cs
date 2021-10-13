@@ -12,7 +12,34 @@ namespace portfolio_EF.Models
         [Key]
         public int TransactionId { get; set; }
         [Required]
-        public string Side { get; set; }
+        string side;
+
+        public string Side
+        {
+            get { return side; }
+            set
+            {
+                if (value == "buy" )
+                    side = value;
+                if (value == "sell")
+                    side = value;
+                if (value == "transh")
+                    side = value;
+            }
+        }
+
+        string star;
+        public string Star
+        {
+            get { return star; }
+            set
+            {
+                if (value != "")
+                    star = value;
+            }
+        }
+
+
         public string TransactionSymbol { get; set; }
         public decimal Amount { get; set; }
         public decimal Priсe { get; set; }
