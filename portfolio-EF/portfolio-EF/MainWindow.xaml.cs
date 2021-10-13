@@ -32,7 +32,7 @@ namespace portfolio_EF
 
             coins = new ObservableCollection<Coin>();
             coins = db.Coins.Local;
-            getAllCoinsTransactions();
+            allRelationsCoinsTransactions();
             
             
             cBoxCoin.ItemsSource = db.Coins.Local.ToBindingList();
@@ -51,7 +51,7 @@ namespace portfolio_EF
         private void cBoxTransaction_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = (Transaction)(sender as ComboBox).SelectedItem;
-            string text = selectedItem.ToString();
+            string text = selectedItem?.ToString();
             tbDeskTransaction.Text = text;
         }       
         
@@ -63,7 +63,7 @@ namespace portfolio_EF
             //TextDeskCoin.Text = text;
 
             var selectedItem = (Coin)(sender as ComboBox).SelectedItem;
-            string text = selectedItem.ToString();
+            string text = selectedItem?.ToString();
             tbDeskCoin.Text = text;
         }
         
@@ -76,22 +76,8 @@ namespace portfolio_EF
             }
         }
 
-
-        private void phonesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-                Transaction transaction = new Transaction();
-
-                Coin coin = grCoinsData.SelectedItem as Coin;
-                var transactions = db.Transactions.Where(c => c.transactionCoins.Contains(coin)).ToList();
-                
-                MessageBox.Show(transactions[1].Side);
-
-            
-        }
-
-        //all coins and their transactions
-        public void getAllCoinsTransactions()
+        //all relations coins-transactions
+        public void allRelationsCoinsTransactions()
         {
             listAllRelationsCoinsTransaction.ItemsSource = (from coin in db.Coins
                                     from transaction in coin.transactions
@@ -103,32 +89,38 @@ namespace portfolio_EF
             
         }
 
-       
-
         public void transactionsOnCoinToList(object sender, RoutedEventArgs e)
         {
             Coin coin = grCoinsData.SelectedItem as Coin;
-            listTransactionsOnCoin.ItemsSource = (from c in db.Coins
-                                                     from t in c.transactions
-                                                     where c.CoinId == coin.CoinId
-                                                     select new
-                                                   {
-                                                       Coin_name = c.Name,
-                                                       Trans_symbol = t.TransactionSymbol
-                                                   }).ToList();
-        }
-
-        public void coinsOnTransactionToList(object sender, RoutedEventArgs e)
-        {
-            Transaction transaction = grTransactionsData.SelectedItem as Transaction;
-            ListAllCoinsForTransaction.ItemsSource = (from c in db.Coins
+            try
+            {
+                listTransactionsOnCoin.ItemsSource = (from c in db.Coins
                                                       from t in c.transactions
-                                                      where t.TransactionId == transaction.TransactionId
+                                                      where c.CoinId == coin.CoinId
                                                       select new
                                                       {
                                                           Coin_name = c.Name,
                                                           Trans_symbol = t.TransactionSymbol
                                                       }).ToList();
+            }
+            catch { }
+        }
+
+        public void coinsOnTransactionToList(object sender, RoutedEventArgs e)
+        {
+            Transaction transaction = grTransactionsData.SelectedItem as Transaction;
+            try
+            {
+                ListAllCoinsForTransaction.ItemsSource = (from c in db.Coins
+                                                          from t in c.transactions
+                                                          where t.TransactionId == transaction.TransactionId
+                                                          select new
+                                                          {
+                                                              Coin_name = c.Name,
+                                                              Trans_symbol = t.TransactionSymbol
+                                                          }).ToList();
+            }
+            catch { }
         }
 
 
@@ -189,8 +181,6 @@ namespace portfolio_EF
                 db.SaveChanges();
                 editTransactionWindow.Close();
             }
-
-
         }
 
         private void btnDeleteTransaction_Click(object sender, RoutedEventArgs e)
@@ -199,18 +189,33 @@ namespace portfolio_EF
             if (result == MessageBoxResult.Yes)
             {
                 Transaction transaction = grTransactionsData.SelectedItem as Transaction;
+                //foreach (var coin in transaction.transactionCoins)
+                //{
+                //    MessageBox.Show("c");
+                //    //deleteTransactionOnCoin(coin, transaction);
+                //    //grCoinsData.DataContext = coin;
+                //}
+                
+
                 db.Transactions.Remove(transaction);
                 db.SaveChanges();
+
             }
-                
         }
+
+
+        //private void deleteTransactionOnCoin(Coin coin, Transaction transaction)
+        //{
+        //    coin.transactions.Remove(transaction);
+
+        //    //    db
+        //    //    db.Transactions.Remove(coin);
+        //    //    db.SaveChanges();
+        //}
 
         private void btnUpdateAllRelationsCoinsTransaction_Click(object sender, RoutedEventArgs e)
         {
-
-            getAllCoinsTransactions();
+            allRelationsCoinsTransactions();
         }
-
-        
     }
 }
