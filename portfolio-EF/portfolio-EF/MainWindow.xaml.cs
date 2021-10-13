@@ -61,7 +61,6 @@ namespace portfolio_EF
             //It's weird that SelectedItem holds the fresh data, whereas SelectedValue doesn't
             //string text = cBoxCoin.Text;
             //TextDeskCoin.Text = text;
-
             var selectedItem = (Coin)(sender as ComboBox).SelectedItem;
             string text = selectedItem?.ToString();
             tbDeskCoin.Text = text;
@@ -83,8 +82,10 @@ namespace portfolio_EF
                                     from transaction in coin.transactions
                                     select new
                                     {
-                                        Coin_name = coin.Name,
-                                        Trans_symbol = transaction.TransactionSymbol
+                                        coin.CoinId,
+                                        name = coin.Name,
+                                        transaction.TransactionId,
+                                        symbol = transaction.TransactionSymbol
                                     }).ToList();
             
         }
@@ -162,9 +163,7 @@ namespace portfolio_EF
             }
             else
             {
-       
                 db.Entry(coin).Reload();
-          
                 grCoinsData.DataContext = null;
                 grCoinsData.DataContext = db.Coins.Local;
             }
@@ -189,29 +188,10 @@ namespace portfolio_EF
             if (result == MessageBoxResult.Yes)
             {
                 Transaction transaction = grTransactionsData.SelectedItem as Transaction;
-                //foreach (var coin in transaction.transactionCoins)
-                //{
-                //    MessageBox.Show("c");
-                //    //deleteTransactionOnCoin(coin, transaction);
-                //    //grCoinsData.DataContext = coin;
-                //}
-                
-
                 db.Transactions.Remove(transaction);
                 db.SaveChanges();
-
             }
         }
-
-
-        //private void deleteTransactionOnCoin(Coin coin, Transaction transaction)
-        //{
-        //    coin.transactions.Remove(transaction);
-
-        //    //    db
-        //    //    db.Transactions.Remove(coin);
-        //    //    db.SaveChanges();
-        //}
 
         private void btnUpdateAllRelationsCoinsTransaction_Click(object sender, RoutedEventArgs e)
         {
