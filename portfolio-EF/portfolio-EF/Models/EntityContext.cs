@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace portfolio_EF.Models
 {
-    class EntityContext : DbContext
+    public class EntityContext : DbContext
     {
         public EntityContext() : base("DefaultConnection")
         {
