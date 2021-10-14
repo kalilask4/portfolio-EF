@@ -34,6 +34,7 @@ namespace portfolio_EF
             cBoxCoinCredit.ItemsSource = db.Coins.Local.ToBindingList();
             cBoxSide.ItemsSource = Transaction.sideType;
             //cBoxSide.SelectedIndex = 0; /dont work
+            //textBoxSum.Content = 0;
 
 
         }
@@ -68,5 +69,6 @@ namespace portfolio_EF
             tbDeskCoinCredit.Text = text;
         }
 
+       
     }
 }

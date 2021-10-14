@@ -26,11 +26,10 @@ namespace portfolio_EF.Models
             }
         }
         
-
-
         public string TransactionSymbol { get; set; }
         public decimal Amount { get; set; }
         public decimal Priсe { get; set; }
+        public decimal Sum { get; set; }
         public DateTime AddDate { get; set; }
         // навигационное свойство
         public List<Coin> transactionCoins { get; set; }
