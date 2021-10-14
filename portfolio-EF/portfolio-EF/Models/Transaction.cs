@@ -13,31 +13,19 @@ namespace portfolio_EF.Models
         public int TransactionId { get; set; }
         [Required]
         string side;
+        public static List<string> sideType = new List<string> { "buy", "sell", "transfer" };
+        //public List<string> SideType {get; }
 
         public string Side
         {
             get { return side; }
             set
             {
-                if (value == "buy" )
-                    side = value;
-                if (value == "sell")
-                    side = value;
-                if (value == "transh")
+                if (sideType.Contains(value))
                     side = value;
             }
         }
-
-        string star;
-        public string Star
-        {
-            get { return star; }
-            set
-            {
-                if (value != "")
-                    star = value;
-            }
-        }
+        
 
 
         public string TransactionSymbol { get; set; }
@@ -67,7 +55,7 @@ namespace portfolio_EF.Models
 
         public Transaction(string transactionSymbol, Coin debetCoin)
         {
-            Side = "Transfer";
+            Side = "transfer";
             TransactionSymbol = transactionSymbol;
             AddDate = DateTime.Now;
             transactionCoins = new List<Coin>(2);

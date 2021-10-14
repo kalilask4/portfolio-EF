@@ -1,6 +1,7 @@
 ﻿using portfolio_EF.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,10 @@ namespace portfolio_EF
 
             cBoxCoinDebet.ItemsSource = db.Coins.Local.ToBindingList();
             cBoxCoinCredit.ItemsSource = db.Coins.Local.ToBindingList();
+            cBoxSide.ItemsSource = Transaction.sideType;
+            //cBoxSide.SelectedIndex = 0; /dont work
+
+
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
