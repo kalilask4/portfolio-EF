@@ -69,6 +69,12 @@ namespace portfolio_EF
             tbDeskCoinCredit.Text = text;
         }
 
-       
+        private void btnCulculateSum_Click(object sender, RoutedEventArgs e)
+        {
+            decimal v1 = Convert.ToDecimal(textBoxAmount.Text);
+            decimal v2 = Convert.ToDecimal(textBoxPrice.Text);
+            textBoxSum.Content = v1*v2;
+            
+        }
     }
 }
