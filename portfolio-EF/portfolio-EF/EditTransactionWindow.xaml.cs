@@ -22,12 +22,14 @@ namespace portfolio_EF
     /// </summary>
     public partial class EditTransactionWindow : Window
     {
-        Transaction transaction;
+        //Transaction transaction;
+        //Coin coinDebet;
+        //Coin coinCredit;
 
-        public EditTransactionWindow(Transaction transaction/*, EntityContext db*/)
+        public EditTransactionWindow(Transaction transaction, Coin coinDebet , Coin coinCredit/*, EntityContext db*/)
         {
             InitializeComponent();
-            this.transaction = transaction;
+            //this.transaction = transaction;
             grid.DataContext = transaction;
 
             cBoxCoinDebet.ItemsSource = MainWindow.db.Coins.Local.ToBindingList();
@@ -35,9 +37,8 @@ namespace portfolio_EF
             cBoxSide.ItemsSource = Transaction.sideType;
             //cBoxSide.SelectedIndex = 0; /doesn't work
             //textBoxSum.Content = 0;
-            
-
         }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
@@ -74,15 +75,16 @@ namespace portfolio_EF
             decimal v1 = Convert.ToDecimal(textBoxAmount.Text);
             decimal v2 = Convert.ToDecimal(textBoxPrice.Text);
             textBoxSum.Content = v1*v2;
-            
         }
 
         private void btnFill_Click(object sender, RoutedEventArgs e)
         {
+            decimal v1 = Convert.ToDecimal(textBoxAmount.Text);
+            decimal v2 = Convert.ToDecimal(textBoxPrice.Text);
+            textBoxSum.Content = v1 * v2;
             Coin coinDebet = cBoxCoinDebet.SelectedItem as Coin;
             Coin coinCredit = cBoxCoinCredit.SelectedItem as Coin;
             textBoxSymbol.Text = coinDebet.Symbol + coinCredit?.Symbol;
-
         }
     }
 }

@@ -136,7 +136,6 @@ namespace portfolio_EF
                 db.SaveChanges();
                 editCoinWindow.Close();
             }
-
         }
 
         private void btnDeleteCoin_Click(object sender, RoutedEventArgs e)
@@ -172,10 +171,14 @@ namespace portfolio_EF
         private void btnAddTransaction_Click(object sender, RoutedEventArgs e)
         {
             var transaction = new Transaction();
-            EditTransactionWindow editTransactionWindow = new EditTransactionWindow(transaction/*, db*/);
+            var coinDebet = new Coin();
+            var coinCredit = new Coin();
+            EditTransactionWindow editTransactionWindow = new EditTransactionWindow(transaction, coinDebet , coinCredit/*, db*/);
             var result = editTransactionWindow.ShowDialog();
             if (result == true)
             {
+                transaction.transactionCoins.Add(coinDebet);
+                transaction.transactionCoins.Add(coinCredit);
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
                 editTransactionWindow.Close();
