@@ -50,11 +50,5 @@ namespace portfolio_EF.Models
             return $"Id{CoinId} - {Name}, {Symbol}, amout = {Amount} - {DateUpdate}";
         }
 
-        //public string Description()
-        //{
-        //    return $"Coin name: {Name} symbol: {Symbol} amout = {Amount}  " +
-        //        $"transaction: {transactions.First().TransactionSymbol}";
-        //}
-
     }
 }

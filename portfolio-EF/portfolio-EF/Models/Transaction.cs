@@ -14,8 +14,7 @@ namespace portfolio_EF.Models
         [Required]
         string side;
         public static List<string> sideType = new List<string> { "buy", "sell", "transfer" };
-        //public List<string> SideType {get; }
-
+        
         public string Side
         {
             get { return side; }
@@ -33,6 +32,7 @@ namespace portfolio_EF.Models
         public DateTime AddDate { get; set; }
         // навигационное свойство
         public List<Coin> transactionCoins { get; set; }
+
 
         public Transaction(string side, string transactionSymbol)
         {
@@ -63,17 +63,26 @@ namespace portfolio_EF.Models
 
         public Transaction()
         {
-            Side = "DefaultSide";
-            TransactionSymbol = "DEFDEF";
+            Side = "sell";
+            TransactionSymbol = "DEF";
             AddDate = DateTime.Now;
             transactionCoins = new List<Coin>(2);
+        }
+
+        public Transaction(string side, string transactionSymbol, decimal amount, decimal priсe, decimal sum, Coin debet, Coin credit)
+        {
+            Side = side;
+            TransactionSymbol = transactionSymbol;
+            Amount = amount;
+            Priсe = priсe;
+            Sum = sum;
+            this.transactionCoins.Add(debet);
+            this.transactionCoins.Add(credit);
         }
 
         public override string ToString()
         {
             return $"Id {TransactionId} {TransactionSymbol} {Side}";
         }
-
-
     }
 }

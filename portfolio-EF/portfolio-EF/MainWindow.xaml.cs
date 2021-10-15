@@ -17,7 +17,7 @@ namespace portfolio_EF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public EntityContext db;
+        public static EntityContext db;
         ObservableCollection<Coin> coins;
         //ObservableCollection<string> coinDescriptions;
 
@@ -172,7 +172,7 @@ namespace portfolio_EF
         private void btnAddTransaction_Click(object sender, RoutedEventArgs e)
         {
             var transaction = new Transaction();
-            EditTransactionWindow editTransactionWindow = new EditTransactionWindow(transaction, db);
+            EditTransactionWindow editTransactionWindow = new EditTransactionWindow(transaction/*, db*/);
             var result = editTransactionWindow.ShowDialog();
             if (result == true)
             {
